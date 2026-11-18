@@ -1,0 +1,16 @@
+rules_version = '2';
+
+// Only the shop's own account may read or write. Every counter signs in once with
+// this account (the "Connect this computer" screen); staff then sign in with their PIN.
+// Replace the email below with the shop account you created in
+// Firebase Console → Authentication → Users, then publish these rules.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isShop() {
+      return request.auth != null && request.auth.token.email == 'shop@example.com';
+    }
+    match /{document=**} {
+      allow read, write: if isShop();
+    }
+  }
+}

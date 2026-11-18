@@ -1,0 +1,6 @@
+node_modules
+.next
+out
+tmp
+output
+.env*.local
